@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="index.js"></script>
+</head>
+<body>
+    <header class="header">
+        header
+    </header>
+    <main class="main">
+        <div class="poied">
+
+        </div>
+        <nav class="nav">Nav</nav>
+        <article class="article">Hello</article>
+        <aside class="aside">Aside</aside>
+    </main>
+    <footer class="footer">footer</footer>
+    <script src="index.js"></script>
+    <script>
+     let p = new HD((resolve, reject) => {
+  setTimeout(() => {
+    resolve("后盾人");
+    console.log("大叔视频");
+  });
+}).then(
+  value => {
+    console.log(value);
+  },
+  reason => {
+    console.log(reason);
+  }
+);
+    </script>
+</body>
+
+    <style>
+       body {
+    display: grid;
+    grid-template: auto 1fr auto / 220px 1fr 220px;
+}
+
+header {
+    grid-column: 1 / 4;
+}
+
+main {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    
+}
+
+nav {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+
+
+aside {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+}
+footer {
+    grid-column: 1 / 4;
+}
+    </style>
+</html>

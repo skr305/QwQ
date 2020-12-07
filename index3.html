@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<style>
+
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #2c3e50;
+  }
+
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  div {
+    color: #9b59b6;
+    font-size: 5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  div > span {
+    position: relative;
+    display: inline-block;
+  }
+  .changeColor {
+    animation-name: changeColor;
+    animation-duration: 1s;
+    animation-direction: alternate;
+    animation-iteration-count: 2;
+    animation-timing-function: linear;
+  }
+  @keyframes changeColor {
+    50% {
+      color: #f1c40f;
+      transform: scale(1.5);
+    }
+    to {
+      color: #9b59b6;
+      transform: scale(0.5);
+    }
+  }
+
+  
+</style>
+
+<body>
+  <div>houdunren.com</div>
+</body>
+
+<script>
+  //这里的reducer起到的是遍历器的作用啊
+  let div = document.querySelector("div");
+  //可以用展开语法把字符串展开成字符的数组
+  [...div.textContent].reduce((pre, cur, index) => {
+    //对应的4个参数是 pre指累加器到目前为止的值
+    //cur指现在遍历到的值
+    //index指现在遍历到的索引值
+    //最后还有一个可以提供的参数是原数组来着
+
+
+    //index的话是什么东西咧?
+    //pre是前面计算的值 应该 始终是0?
+    //把div掏空 然后把div内部的文档都给消掉
+    //不过这个事情只会做一次 所以就用这种方式
+    //指第一次即index是0与计算出的值0相等时才会触发
+    //还真是...优雅呢?
+    pre == index && (div.innerHTML = "");
+    let span = document.createElement("span");
+    span.textContent = cur;
+    div.appendChild(span);
+    span.addEventListener("mouseover", function() {
+      this.classList.add("changeColor");
+    });
+    span.addEventListener("animationend", function() {
+      this.classList.remove("changeColor");
+    });
+  }, 0);
+
+  let obj = {
+  name: "后盾人",
+  user: {
+    name: "hdcms"
+  },
+  data: []
+};
+
+
+// function student(name) {
+//   this.name = name;
+//   this.show = function() {
+//     console.log(this.name);
+//   };
+//   //不需要返回，系统会自动返回
+//   // return this;
+// }
+// const lisi = new student("李四");
+// lisi.show();
+// const xj = new student("向军");
+// xj.show();
+
+//深拷贝 采用递归实现
+//如果是某个元素是对象 对应的键值就是
+//这个对象的拷贝
+// function copy(object) {
+//   let obj = object instanceof Array ? [] : {};
+//   for (const [k, v] of Object.entries(object)) {
+//     obj[k] = typeof v == "object" ? copy(v) : v;
+//   }
+//   return obj;
+// }
+// function User() {
+//   this.show = function() {
+//     console.log(this);
+//   };
+// }
+// let hd = new User();
+// hd.show(); //User
+
+// let xj = hd.show;
+// xj(); //undefined
+
+
+
+
+
+</script>
+</html>
+

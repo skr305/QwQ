@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div desc="houdunren">在线学习</div>
+    <div desc="hdcms">开源产品</div> 
+    <script>
+    let divs = document.querySelectorAll("div");
+    divs.forEach(function(item) {
+      item.addEventListener("click", function() {
+        console.log(item.getAttribute("desc"));
+      });
+    });
+
+    let {a, b} = {a: 233, b: {c:244}}
+    console.log(b)
+
+    const hd = {
+  name: "后盾人",
+  age: 10
+};
+for (const key of Object.keys(hd)) {
+  console.log(key);
+}
+
+for(key in hd) {
+    console.log(key)
+}
+
+for (const [key, value] of Object.entries(hd)) {
+  console.log(key, value);
+}
+
+function a1() {
+    let b=2
+    return function() {
+        return function () {
+            console.log(b)
+        }
+    }
+}
+
+let obj = {
+    q: 233,
+    show() {
+        console.log(this.q)
+        return function() {
+            console.log(this.q)
+        }
+    }
+}
+this.q=244
+
+let ee = {
+    show() {
+        console.log(this.q)
+    }
+}
+
+let show = ee.show
+
+show()
+
+function myfunc({a,b}) {
+    console.log(a,b)
+}
+
+myfunc({a: 4, b:5})
+
+let object = {
+  name: "后盾人",
+  user: {
+    name: "hdcms"
+  },
+  data: []
+};
+
+function copy(origin) {
+    let obj = origin instanceof Array ? [] : {}
+    for(const [k, v] of Object.entries(origin)) {
+        obj[k] = typeof v == 'object' ? copy(v) : v
+    }
+
+    return obj
+}
+
+
+// function copy(object) {
+//   let obj = object instanceof Array ? [] : {};
+//   for (const [k, v] of Object.entries(object)) {
+//     obj[k] = typeof v == "object" ? copy(v) : v;
+//   }
+//   return obj;
+// }
+
+let hd2 = copy(object);
+hd2.data.push("向军");
+console.log(typeof hd2.data, copy instanceof Object, 1 instanceof Number)
+console.log(JSON.stringify(hd2, null, 2));
+console.log(JSON.stringify(object, null, 2));
+
+
+const user = {
+  name: "向军",
+  age: 18
+};
+let desc = Object.getOwnPropertyDescriptors(user);
+console.log(desc)
+
+
+let Lesson = {
+  lists: [
+    { name: "js", price: 100 },
+    { name: "mysql", price: 212 },
+    { name: "vue.js", price: 98 }
+  ],
+  total: null,
+  get total() {
+    return this.lists.reduce((t, b) => t + b.price, 0);
+  }
+};
+console.log(Lesson.total); //410
+Lesson.total = 30; //无效
+console.log(Lesson.total); //410
+  </script>
+  </body>
+ 
+</html>

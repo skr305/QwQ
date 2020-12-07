@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <input type="text" v-model="title" />
+    <input type="text" v-model="title" />
+    <div v-bind="title"></div>
+    </body>
+    <script>
+    
+    //监视器?
+    function View() {
+        //设置代理拦截
+      let proxy = new Proxy(
+        {},
+        {
+          get(obj, property) {},
+          //一个设置器 
+          set(obj, property, value) {
+            obj[property] = value;
+        
+            document
+              .querySelectorAll(
+                `[v-model="${property}"],[v-bind="${property}"]`
+              )
+              .forEach(el => {
+                el.innerHTML = value;
+                el.value = value;
+              });
+          }
+        }
+      );
+      //初始化绑定元素事件
+      this.run = function() {
+          //初始化监听事件 一抬起指头就会触发对应的set函数
+        const els = document.querySelectorAll("[v-model]");
+        //给所有绑定了v-model的表单添加监听事件
+        els.forEach(item => {
+          item.addEventListener("keyup", function() {
+            proxy[this.getAttribute("v-model")] = this.value;
+          });
+        });
+      };
+    }
+    let view = new View().run();
+    //整个obj被封装到了proxy里头 对于外界的联通全由 set和get负责
+    //内部有一个抽象的显式对象 任何的数据存储不是通过this.xx来完成的 而
+    //是通过访问一个虚拟的obj对象来进行的
+    
+
+    //思想就是把真正的对象放到proxy对象中
+    //不过老实说 我觉得没有这个代理对象也可以做到这件事情
+</script>
+</html>
